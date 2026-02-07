@@ -22,8 +22,21 @@ chrome.runtime.onConnect.addListener(function(port) {
   });
 });
 
+let ollama_host = 'http://localhost:11434';
+
+async function loadHostFromStorage() {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get('aiHostUrl', (result) => {
+      if (result.aiHostUrl) {
+        ollama_host = result.aiHostUrl;
+      }
+      resolve(ollama_host);
+    });
+  });
+}
 
 async function getModelFromStorage() {
+  await loadHostFromStorage();
   return new Promise((resolve, reject) => {
     chrome.storage.local.get('model', function(result) {
       const selectedModel = result.model ? result.model.trim() : '';
@@ -32,7 +45,6 @@ async function getModelFromStorage() {
   });
 }
 
-const ollama_host = 'http://localhost:11434';
 // Function to get response from Language Learning Model (LLM)
 async function getResponseFromLLM(query, port) {
 

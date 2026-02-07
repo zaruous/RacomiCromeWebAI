@@ -19,6 +19,8 @@
   "enableEmailDesc": { "message": "Turn on this feature to Enhance your Gmail experience by enabling AI-generated suggestions for composing and replying to emails." },
   "enableGoogleSearch": { "message": "Enable Google Search Enhancements" },
   "enableGoogleSearchDesc": { "message": "Turn on this feature to improve your experience with search results." },
+  "aiHostUrl": { "message": "AI Host URL (Ollama/vLLM)" },
+  "aiHostUrlDesc": { "message": "Default is http://localhost:11434 for Ollama." },
   "noteLLM": { "message": "Note: The responses generated are entirely dependent on the language model (LLM) that you are using." },
   "saveSettings": { "message": "Save Settings" },
   "notInitialized": { "message": "NOT INITIALIZED" },

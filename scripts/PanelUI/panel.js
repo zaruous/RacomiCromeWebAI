@@ -15,6 +15,18 @@ let conversationHistory = '[no existing conversation]';
 var version = chrome.runtime.getManifest().version;
 var ollama_host = 'http://localhost:11434'
 let model = ''
+
+async function loadHostFromStorage() {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get('aiHostUrl', (result) => {
+      if (result.aiHostUrl) {
+        ollama_host = result.aiHostUrl;
+      }
+      resolve(ollama_host);
+    });
+  });
+}
+
 var rebuildRules = undefined;
 var status_failed = false
 if (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.id) {
@@ -54,11 +66,6 @@ marked.use({
   mangle: false,
   headerIds: false
 });
-
-//set domain ORIGIN to localhost
-if (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.id) {
-  rebuildRules('localhost');
-}
 
 let controller = new AbortController();
 
@@ -219,6 +226,7 @@ async function populateModels() {
         // otherwise set to the first element if exists and update URL accordingly
         selectElement.value = selectElement.options[0].value;
         MODEL_ID = selectElement.options[0].value;
+        chrome.storage.local.set({ 'model': MODEL_ID });
       }
       const modelStatusElement = document.getElementById('status');
       const modelStatusElement1 = document.getElementById('status1');
@@ -331,6 +339,19 @@ async function getModelFromStorage() {
 
 
 let isDocument = false
+function displayError(error, chatlog) {
+  console.error('Error:', error);
+  const loading = document.getElementById('loading');
+  if (loading) {
+    loading.classList.add('hidden');
+    loading.classList.remove('flex');
+  }
+  ongoing = false;
+  document.getElementById('stop-button').classList.add('hidden');
+  document.getElementById('submit').classList.remove('hidden');
+  showAlert('An error occurred: ' + error.message);
+}
+
 // Function to handle user input and call the API functions
 async function submitRequest() {
   const input = promptInput.value;
@@ -411,14 +432,14 @@ docContent=""
 
   var Model = await getModelFromStorage()
 
+  if (!Model) {
+    Model = document.getElementById('model-select').value;
+  }
 
-
-
-
-  // if (!Model) {
-  //   Model = selectedModel
-    
-  // }
+  if (!Model || Model === 'No models found') {
+    displayError(new Error("No model selected. Please pull a model in Ollama or refresh the list."), chatlog);
+    return;
+  }
 
   if (isDocument) {
     const removeDoc = document.querySelector('.document-container .remove-doc');
@@ -1298,8 +1319,10 @@ function applyTheme(theme) {
 
 async function initScript() {
   MODEL_ID = '';
+  await loadHostFromStorage();
   if (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.id) {
-    await rebuildRules('localhost');
+    const domain = ollama_host.split("//")[1]?.split(":")[0] || 'localhost';
+    await rebuildRules(domain);
   }
   await populateModels();
   updateSettingString();

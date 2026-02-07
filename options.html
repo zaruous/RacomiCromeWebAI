@@ -69,6 +69,11 @@ body::before {
             <p class="text-sm mt-1" data-i18n="enableEmailDesc">Turn on this feature to Enhance your Gmail experience by enabling AI-generated suggestions for composing and replying to emails.</p>
         </div>
         <div class="mb-4">
+            <label class="block text-sm font-medium mb-1" data-i18n="aiHostUrl">AI Host URL (Ollama/vLLM)</label>
+            <input type="text" id="aiHostUrl" class="w-full p-2 rounded bg-gray-800 border border-gray-600 text-white focus:outline-none focus:border-blue-500" placeholder="http://localhost:11434">
+            <p class="text-xs mt-1 text-gray-400" data-i18n="aiHostUrlDesc">Default is http://localhost:11434 for Ollama.</p>
+        </div>
+        <div class="mb-4">
             <label class="flex items-center">
                 <input type="checkbox" id="toggleGoogleSearch" class="form-checkbox h-5 w-5 text-blue-600">
                 <span class="toggle-description" data-i18n="enableGoogleSearch">Enable Google Search Enhancements</span>

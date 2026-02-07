@@ -13,6 +13,30 @@ Refactored and improved the original source code.
 
 ---
 
+## 🛠️ Getting Started (시작하기)
+
+### 1. Ollama Setup (Ollama 설정)
+- **Install Ollama**: Download and install from [ollama.com](https://ollama.com/).
+- **Run Ollama**: Ensure Ollama is running on your machine (default: `http://localhost:11434`).
+- **Pull a Model (모델 다운로드)**: Open your terminal and run a model. For example, to use **Kimi k2**:
+  ```bash
+  # Kimi k2 모델 다운로드 예시
+  ollama pull kimi:k2
+  ```
+  *(Note: You can also use other models like `llama3`, `mistral`, `gemma`, etc.)*
+
+### 2. Extension Installation (확장 프로그램 설치)
+- **Load Unpacked**:
+  1. Open Chrome and navigate to `chrome://extensions/`.
+  2. Toggle **Developer mode** (top right).
+  3. Click **Load unpacked** and select the `RacomiCromeWebAI` project folder.
+
+### 3. Usage (사용법)
+- **Open Panel**: Use the shortcut `Ctrl+Shift+Left` or click the extension icon to open the side panel.
+- **Select Model**: Choose `kimi:k2` from the model dropdown list. If it doesn't appear, click the **Refresh** icon.
+
+---
+
 ## 🚀 Key Features (주요 기능)
 
 ### 1. Local AI Integration (로컬 AI 연동)

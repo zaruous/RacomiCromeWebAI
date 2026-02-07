@@ -35,7 +35,15 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
-rebuildRules('localhost');
+async function initBackground() {
+  chrome.storage.sync.get('aiHostUrl', (result) => {
+    const host = result.aiHostUrl || 'http://localhost:11434';
+    const domain = host.split("//")[1]?.split(":")[0] || 'localhost';
+    rebuildRules(domain);
+  });
+}
+
+initBackground();
 
 // Listener for clicks on the context menu items
 chrome.contextMenus.onClicked.addListener((info, tab) => {
