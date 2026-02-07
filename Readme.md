@@ -13,6 +13,9 @@ Refactored and improved the original source code.
 
 ---
 
+## 미리보기
+<img width="400" height="600" alt="image" src="https://github.com/user-attachments/assets/97659b39-1f24-4fa7-bde1-e78f7b8a890d" />
+
 ## 🛠️ Getting Started (시작하기)
 
 ### 1. Ollama Setup (Ollama 설정)
