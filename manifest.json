@@ -5,9 +5,9 @@
   "description": "__MSG_extDesc__",
   "default_locale": "en",
   "icons": {
-    "16": "assets/logo.png",
-    "48": "assets/logo.png",
-    "128": "assets/logo.png"
+    "16": "assets/logo-16.png",
+    "48": "assets/logo-48.png",
+    "128": "assets/logo-128.png"
   },
   "commands": {
     "open_side_panel": {
